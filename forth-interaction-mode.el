@@ -225,7 +225,8 @@
 	  (forward-sexp)
 	  (let ((string (buffer-substring start (point))))
 	    (forth-switch-to-output-buffer)
-	    (insert (forth-interaction-send string))
+	    (insert (concat (forth-interaction-send string) "\n"))
+	    (comint-set-process-mark)
 	    (unless forth-go-to-interaction-buffer-after-eval
 	      (forth-switch-to-source-buffer)))))
       (message "Forth not started.")))
