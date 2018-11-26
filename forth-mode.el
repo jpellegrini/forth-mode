@@ -31,6 +31,7 @@
     (define-key map (kbd "C-c :")     'forth-eval)
     (define-key map (kbd "C-c C-d 1") 'forth-spec-lookup-1994)
     (define-key map (kbd "C-c C-d 2") 'forth-spec-lookup-2012)
+    (define-key map (kbd "C-c C-a")   'forth-describe-package)
     ;; (define-key map (kbd "C-c C-c") 'eval-buffer)
     ;; (define-key map (kbd "C-x `") #'forth-next-error)
     ;; (define-key map (kbd "M-n") #'forth-next-note)
@@ -70,20 +71,26 @@
 ;;    clicked on
 (defvar forth-menu-entries
   (reverse (list
-	    '(see          "See"                   forth-see)
-	    '(eval         "Eval"                  forth-eval)
-	    '(eval-defun   "Eval defun"            forth-eval-defun)
-	    '(eval-region  "Eval region"           forth-eval-region)
-	    '(eval-last    "Eval last"             forth-eval-last-expression)
-	    '(eval-display "Eval last and display" forth-eval-last-expression-display-output)
-	    '(separator1   "--")
-	    '(lookup-1994  "Lookup 1994 spec"      forth-spec-lookup-1994)
-	    '(lookup-2012  "Lookup-2012 spec"      forth-spec-lookup-2012)
-	    '(separator2   "--")
-	    '(load-file    "Load file"             forth-load-file)
-	    '(run          "Run Forth"             run-forth)
-	    '(restart      "Restart Forth"         forth-restart)
-	    '(kill         "Kill"                  forth-kill))))
+	    '(see           "See"                   forth-see)
+	    '(eval          "Eval"                  forth-eval)
+	    '(eval-defun    "Eval defun"            forth-eval-defun)
+	    '(eval-region   "Eval region"           forth-eval-region)
+	    '(eval-last     "Eval last"             forth-eval-last-expression)
+	    '(eval-display  "Eval last and display" forth-eval-last-expression-display-output)
+	    '(separator1    "--")
+	    '(lookup-1994   "Lookup 1994 spec"      forth-spec-lookup-1994)
+	    '(lookup-2012   "Lookup-2012 spec"      forth-spec-lookup-2012)
+	    '(separator2    "--")
+	    '(load-file     "Load file"             forth-load-file)
+	    '(run           "Run Forth"             run-forth)
+	    '(restart       "Restart Forth"         forth-restart)
+	    '(kill          "Kill"                  forth-kill)
+	    '(separator3    "--")
+	    '(describe-pkg  "About forth-mode"      forth-describe-package))))
+
+(defun forth-describe-package ()
+  (interactive)
+  (describe-package 'forth-mode))
 
 ;; forth-create-menu will actually call define-key to
 ;; add meu entries. The format is that of the variable
