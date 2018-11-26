@@ -101,6 +101,21 @@ minibuffer.
 Evalutate the current region.  The output, if any, is printed in the
 minibuffer.
 
+@item C-c C-v
+@itemx M-x forth-eval-line
+
+Evalutate the current or previous non-blank line.  The output, if any, is printed in the
+minibuffer.
+
+@item C-c C-b
+@itemx M-x forth-eval-lines
+
+Evalutate a set of consecutive non-blank lines.  The first non-blank line is picked from the current
+point upwards; from there, the region to be sent to be evaluated is chosen following lines in
+both directions (above and below) until a blank line is found. The output, if any, is printed in the
+minibuffer.
+
+
 @item C-c C-e
 @itemx M-x forth-eval-last-expression
 

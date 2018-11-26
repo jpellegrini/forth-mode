@@ -156,6 +156,66 @@
   (forth-eval (buffer-substring start end)))
 
 ;;;###autoload
+(defun forth-empty-line-p ()
+  (interactive)
+  (save-excursion
+   (and (skip-chars-backward " ") (bolp)
+	(skip-chars-forward " ") (eolp))))
+
+;;;###autoload
+(defun forth-first-line-p ()
+  (= (count-lines 1 (point)) 1))
+
+;;;###autoload
+(defun forth-previous-nonempty-line ()
+  "Go to the first non-empty line above, INCLUDING
+the current one"
+  (save-excursion
+   (while (and (not (forth-first-line-p))
+	       (forth-empty-line-p))
+	  (previous-line))
+   (line-beginning-position)))
+
+;;;###autoload
+(defun forth-previous-empty-line ()
+  "Go to the first empty line above, NOT
+counting the current one."
+  (save-excursion
+   (while (and (not (forth-first-line-p))
+	       (not (forth-empty-line-p)))
+	  (previous-line))
+   (line-beginning-position)))
+
+;;;###autoload
+(defun forth-next-empty-line ()
+  "Go to the first empty line below, INCLUDING
+the current one."
+  (save-excursion
+   (next-line)
+   (while ;(and (not (forth-last-line-p))
+	       (not (forth-empty-line-p))
+	  (next-line))
+   (line-beginning-position)))
+
+;;;###autoload
+(defun forth-eval-lines ()
+  (interactive)
+  (save-excursion
+   (goto-char (forth-previous-nonempty-line))
+   (let ((end   (forth-next-empty-line))
+	 (start (forth-previous-empty-line)))
+	(forth-eval (buffer-substring start end)))))
+
+;;;###autoload
+(defun forth-eval-line ()
+  (interactive)
+  (save-excursion
+   (let ((start (forth-previous-nonempty-line)))
+	(goto-char start)
+	(let ((end (line-end-position)))
+	     (forth-eval (buffer-substring start end))))))
+
+;;;###autoload
 (defun forth-eval-defun ()
   (interactive)
   (save-excursion
